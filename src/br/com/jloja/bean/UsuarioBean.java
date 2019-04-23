@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.jloja.DAO.UsuarioDAO;
 import br.com.jloja.entity.UsuarioEntity;
+import br.com.jloja.util.MsgUtil;
 
 @ManagedBean(name = "usuarioMB")
 @ViewScoped
@@ -28,11 +29,43 @@ public class UsuarioBean {
 		try {
 			new UsuarioDAO().adicionar(usuario);
 			usuario = new UsuarioEntity();
+			MsgUtil.msgInfo("Usuario cadastrado com sucesso!");
 		} catch (Exception e) {
-			throw e;
+			MsgUtil.msgErro("Erro ao cadastrar Usuario: " + e.getMessage());
 		}
 	}
 	
+	public void buscarCodigo(long id) {
+		try {
+			usuario = new UsuarioEntity();
+			System.out.println(id);
+			usuario = new UsuarioDAO().buscarPorId((int)id);
+		} catch (Exception e) {
+			MsgUtil.msgErro("Erro ao Buscar Usuario: " + e.getMessage());
+		}
+	}
+	
+	public void editar() {
+		try {
+			new UsuarioDAO().Editar(usuario);
+			MsgUtil.msgInfo("Usuario editado com Sucesso!");
+		} catch (Exception e) {
+			MsgUtil.msgErro("Erro ao editar Usuario: " + e.getMessage());
+		} finally {
+			usuario = new UsuarioEntity();
+		}
+	}
+	
+	public void excluir() {
+		try {
+			new UsuarioDAO().excluir(usuario);
+			MsgUtil.msgInfo("Usuario Excluido com Sucesso!");
+		} catch (Exception e) {
+			MsgUtil.msgErro("Erro ao editar Usuario: " + e.getMessage());
+		} finally {
+			usuario = new UsuarioEntity();
+		}
+	}
 	
 	
 	public UsuarioEntity getUsuario() {

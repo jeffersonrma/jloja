@@ -25,23 +25,36 @@
 						<h:outputText value="#{user.nome}" />
 					</p:column>
 					<p:column headerText="Ação" style="width: 20%; text-align: center">
-						<p:commandButton icon="ui-icon-pencil" title="Alterar"></p:commandButton>
-						<p:commandButton icon="ui-icon-trash" title="Excluir"></p:commandButton>
+						<p:commandButton icon="ui-icon-pencil" title="Alterar" 
+						onclick="PF('dleduser').show();" 
+						actionListener="#{usuarioMB.buscarCodigo(user.id)}"
+						update=":userEditar:pnleduser :form:usuario :template"
+						></p:commandButton>
+						<p:commandButton icon="ui-icon-trash" title="Excluir" id="btnexc"
+						actionListener="#{usuarioMB.buscarCodigo(user.id)}"						
+						></p:commandButton>
+						
+						<p:overlayPanel id="excpanel" for="btnexc" hideEffect="fade">
+						<p:commandButton value="Sim" icon="ui-icon-check" actionListener="#{usuarioMB.excluir()}"
+						update=":userEditar:pnleduser :form:usuario :template"
+						></p:commandButton>
+						<p:commandButton value="Não" icon="ui-icon-close" update=":userEditar:pnleduser :form:usuario :template"
+						></p:commandButton>
+						</p:overlayPanel>
+						
 					</p:column>
 					
 					<f:facet name="footer">
 						<p:commandButton icon="ui-icon-plusthick" value="Novo Usuario" onclick="PF('dluser').show();"/>
 					</f:facet>
 				</p:dataTable>
-			 </h:form>
-			 
+			 </h:form>		 
+
+			 <!-- CADASTRO DE USUARIO -->
 			 <p:dialog widgetVar="dluser" id="dlu" header="Cadastro de Usuario" modal="true" appendTo="@(body)" 
 			 resizable="false" draggable="false" width="50%">
 			 	<h:form id="userCadastro">
 			 		<h:panelGrid id="pnluser" columns="2" cellpadding="5" width="100%">
-			 			<f:facet name="header">
-			 				<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" width="100%" style="fontsize: 5px" />
-			 			</f:facet>
 			 			<h:outputLabel value="Codigo:"/>
 			 			<h:inputText disabled="true" id="id" value="" style="width: 30%"/>
 			 			<h:outputLabel value="Nome:"/>	
@@ -52,7 +65,27 @@
 			 			<p:password required="true" id="repetirsenha" value="#{usuarioMB.usuario.senha}" style="width: 100%"/>
 			 			
 			 			<f:facet name="footer">
-			 				<p:commandButton value="Gravar" icon="ui-icon-disk" update=":userCadastro:pnluser :form:usuario" actionListener="#{usuarioMB.adicionar()}"/>
+			 				<p:commandButton value="Gravar" icon="ui-icon-disk" onclick="PF('dleduser').hide()" update=":userCadastro:pnluser :form:usuario :template" actionListener="#{usuarioMB.adicionar()}"/>
+			 			</f:facet>			 			
+			 		</h:panelGrid>
+			 	</h:form>
+			 </p:dialog>
+			 
+			 <!-- EDIÇÂO DE USUARIO -->
+			 <p:dialog widgetVar="dleduser" id="dledu" header="Editar Usuario" modal="true" appendTo="@(body)" 
+			 resizable="false" draggable="false" width="50%">
+			 	<h:form id="userEditar">
+			 		<h:panelGrid id="pnleduser" columns="2" cellpadding="5" width="100%">
+			 			<h:outputLabel value="Codigo:"/>
+			 			<h:inputText disabled="true" id="id" value="#{usuarioMB.usuario.id}" style="width: 30%" />
+			 			<h:outputLabel value="Nome:"/>	
+			 			<p:inputText required="true" id="nome" value="#{usuarioMB.usuario.nome}" style="width: 100%"/>
+			 			<h:outputLabel value="Senha: "/>	
+			 			<p:password required="true" id="senha" value="#{usuarioMB.usuario.senha}" style="width: 100% " />	
+
+			 			
+			 			<f:facet name="footer">
+			 				<p:commandButton value="Gravar Edição" icon="ui-icon-disk" onclick="PF('dleduser').hide()" update=":userEditar:pnleduser :form:usuario :template" actionListener="#{usuarioMB.editar}"/>
 			 			</f:facet>			 			
 			 		</h:panelGrid>
 			 	</h:form>

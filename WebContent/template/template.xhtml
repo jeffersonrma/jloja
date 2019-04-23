@@ -28,20 +28,20 @@
 				<h:outputText value="South unit content." />
 			</p:layoutUnit>
 			<p:layoutUnit position="north" reiszible="true" >
-				<h:form>  
-				    <p:growl id="messages"/>
+				<h:form id="template">  
+				    <p:growl id="messages" />
 			     	<p:menubar>
 						
 						<p:menuitem value="Home" url="#" icon="" ></p:menuitem>
 				 
 				        <p:submenu label="Produto" icon="pi pi-pencil">
-				            <p:menuitem value="Lista" url="#" icon="pi pi-angle-double-left" />
-				            <p:menuitem value="Novo" url="#" icon="pi pi-angle-double-right" />
+				            <p:menuitem value="Saida" url="#" icon="pi pi-angle-double-left" />
+				            <p:menuitem value="Controle  de Estoque" url="#" icon="pi pi-angle-double-right" />
 				        </p:submenu>
 				 
-				        <p:submenu label="Usuario" icon="pi pi-question">
-				            <p:menuitem value="Lista" url="#" />
-							<p:menuitem value="Novo" url="#" />
+				        <p:submenu label="Manutenção" icon="pi pi-question">
+				            <p:menuitem value="Usuario" url="#" />
+							<p:menuitem value="Produtos" url="#" />
 				        </p:submenu>
 				 
 				        <f:facet name="options">
