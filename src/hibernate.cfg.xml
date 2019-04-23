@@ -12,7 +12,10 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">false</property>
         <property name="hbm2ddl.auto">update</property>
-         
+<!-- 		validate: validar o schema, não faz mudanças no banco de dados.
+			update: faz update o schema.
+			create: cria o schema, destruindo dados anteriores.
+			create-drop: drop o schema quando ao terminar a sessão -->
         <mapping class="br.com.jloja.entity.ProdutoEntity" />
         <mapping class="br.com.jloja.entity.UsuarioEntity" />
         

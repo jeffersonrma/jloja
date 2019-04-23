@@ -46,7 +46,7 @@ public class ProdutoEntity {
 	private int estoqueIdeal;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fabricante", referencedColumnName = "idusuario", nullable = false)
+	@JoinColumn(name = "usuario_id",  nullable = false)
 	private UsuarioEntity usuarioCadastro;
 
 	

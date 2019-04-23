@@ -13,12 +13,11 @@ import br.com.jloja.util.HibernateUtil;
 
 public class UsuarioDAO {
 	
-	public static void main(String[] args) {
-		UsuarioDAO udao = new UsuarioDAO();
+	public static void main(String[] args) {	
 		UsuarioEntity user = new UsuarioEntity();
-		user.setNome("nome4");
+		user.setNome("123");
 		user.setSenha("123");
-		udao.adicionar(user);
+		new UsuarioDAO().adicionar(user);
 		
 		
 //		UsuarioEntity user = udao.buscarPorId(2);
