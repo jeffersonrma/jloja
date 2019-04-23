@@ -27,6 +27,26 @@ public class UsuarioDAO {
 //		
 	}
 	
+	public UsuarioEntity autenticar(String login, String senha) {
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		UsuarioEntity u = null;
+		try {
+			Query<UsuarioEntity> consulta = sessao.getNamedQuery("UsuarioEntity.login");
+			consulta.setParameter("login", login);
+			consulta.setParameter("senha", senha);
+			u = (UsuarioEntity)consulta.uniqueResult();
+			System.out.println("Usuario emcontrado com sucesso " + u);
+			
+		} catch (Exception e) {
+			System.out.println("erro usuario/buscarPorId " + e.getMessage());
+			throw e;
+		} finally {
+			sessao.close();
+			System.out.println("sessao fecheda");
+		}
+		return u;
+	}
+	
 	public List<UsuarioEntity> listar(){
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		List<UsuarioEntity> us = null;

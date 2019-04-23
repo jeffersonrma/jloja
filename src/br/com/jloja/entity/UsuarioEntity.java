@@ -12,7 +12,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 @NamedQueries({
 	@NamedQuery(name = "UsuarioEntity.listar", query = "SELECT u FROM UsuarioEntity u"),
-	@NamedQuery(name = "UsuarioEntity.buscarPorId", query = "SELECT u FROM UsuarioEntity u WHERE u.id = :id")
+	@NamedQuery(name = "UsuarioEntity.buscarPorId", query = "SELECT u FROM UsuarioEntity u WHERE u.id = :id"),
+	@NamedQuery(name = "UsuarioEntity.login", query = "SELECT u FROM UsuarioEntity u WHERE u.senha = :senha AND u.nome = :nome")
 })
 
 @Entity

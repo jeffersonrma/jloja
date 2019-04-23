@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import br.com.jloja.DAO.UsuarioDAO;
 import br.com.jloja.entity.UsuarioEntity;
@@ -16,7 +18,25 @@ public class UsuarioBean {
 	private List<UsuarioEntity> listaU;
 	private List<UsuarioEntity> listaUFiltrado;
 	private UsuarioEntity usuario = new UsuarioEntity();
+	private UsuarioEntity usuarioLogado;
 	
+	public void autenticar() {
+		try {
+			usuarioLogado = new UsuarioDAO().autenticar(usuarioLogado.getNome(), usuarioLogado.getSenha());
+			if (usuarioLogado == null) {
+				MsgUtil.msgInfo("Usuario ou Senha inválidos");
+				usuario = new UsuarioEntity();
+			} else {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/loja/index.xhtml");
+			}
+			
+		} catch (Exception e) {
+			System.out.println("erro autenticar usuario : " + e.getMessage());
+			MsgUtil.msgErro("Erro ao autenticar usuario" + e.getMessage());
+		}
+	}
+	
+
 	public void listar() {
 		try {
 			listaU = new UsuarioDAO().listar();
@@ -89,4 +109,12 @@ public class UsuarioBean {
 		this.listaUFiltrado = listaUFiltrado;
 	}
 	
+	public UsuarioEntity getUsuarioLogado() {
+		if (usuarioLogado == null) usuarioLogado = new UsuarioEntity();
+		return usuarioLogado;
+	}
+	
+	public void setUsuarioLogado(UsuarioEntity usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 }
