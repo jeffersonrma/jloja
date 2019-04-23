@@ -1,9 +1,10 @@
 package br.com.jloja.bean;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -12,13 +13,21 @@ import br.com.jloja.entity.UsuarioEntity;
 import br.com.jloja.util.MsgUtil;
 
 @ManagedBean(name = "usuarioMB")
-@ViewScoped
+@SessionScoped
 public class UsuarioBean {
 	
 	private List<UsuarioEntity> listaU;
 	private List<UsuarioEntity> listaUFiltrado;
 	private UsuarioEntity usuario = new UsuarioEntity();
 	private UsuarioEntity usuarioLogado;
+	
+	public UsuarioBean() {
+		System.out.println("OOOOOOOOOOOOOOOO   CRIADO");
+	}
+	
+	public void verificarLogado(){
+		if (usuarioLogado == null || usuarioLogado.getId() == 0) sair();
+	}
 	
 	public void autenticar() {
 		try {
@@ -27,12 +36,21 @@ public class UsuarioBean {
 				MsgUtil.msgInfo("Usuario ou Senha inválidos");
 				usuario = new UsuarioEntity();
 			} else {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("/loja/index.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/jloja/index.xhtml");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("erro autenticar usuario : " + e.getMessage());
 			MsgUtil.msgErro("Erro ao autenticar usuario" + e.getMessage());
+		}
+	}
+	
+	public void sair() {
+		try {
+			usuarioLogado = null;
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/jloja/view/login.xhtml");
+		} catch (Exception e) {
+			
 		}
 	}
 	

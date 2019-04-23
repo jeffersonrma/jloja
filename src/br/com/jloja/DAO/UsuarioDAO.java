@@ -27,12 +27,12 @@ public class UsuarioDAO {
 //		
 	}
 	
-	public UsuarioEntity autenticar(String login, String senha) {
+	public UsuarioEntity autenticar(String nome, String senha) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		UsuarioEntity u = null;
 		try {
 			Query<UsuarioEntity> consulta = sessao.getNamedQuery("UsuarioEntity.login");
-			consulta.setParameter("login", login);
+			consulta.setParameter("nome", nome);
 			consulta.setParameter("senha", senha);
 			u = (UsuarioEntity)consulta.uniqueResult();
 			System.out.println("Usuario emcontrado com sucesso " + u);

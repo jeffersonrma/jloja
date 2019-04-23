@@ -7,6 +7,7 @@
 		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	>
 	<h:head>
+		
 		<style>
 			.ui-layout-north {
 				z-index: 3 !important;
@@ -30,9 +31,10 @@
 			<p:layoutUnit position="north" reiszible="true" >
 				<h:form id="template">  
 				    <p:growl id="messages" />
+				    <f:event listener="#{usuarioMB.verificarLogado()}" type="preRenderView"></f:event>
 			     	<p:menubar>
 						
-						<p:menuitem value="Home" url="#" icon="" ></p:menuitem>
+						<p:menuitem value="Home" url="/jloja" icon="" ></p:menuitem>
 				 
 				        <p:submenu label="Produto" icon="pi pi-pencil">
 				            <p:menuitem value="Saida" url="#" icon="pi pi-angle-double-left" />
@@ -40,12 +42,12 @@
 				        </p:submenu>
 				 
 				        <p:submenu label="Manutenção" icon="pi pi-question">
-				            <p:menuitem value="Usuario" url="#" />
-							<p:menuitem value="Produtos" url="#" />
+				            <p:menuitem value="Usuario" url="/jloja/view/usuario.xhtml" />
+							<p:menuitem value="Produtos" url="/jloja/view/produtos.xhtml" />
 				        </p:submenu>
 				 
 				        <f:facet name="options">
-				            <p:commandButton type="button" value="Logout" icon="pi pi-home" />
+				            <p:commandButton actionListener="#{usuarioMB.sair}" value="Logout - #{usuarioMB.usuarioLogado.nome}"/>
 				        </f:facet>
 				    </p:menubar>
 				</h:form>

@@ -1,7 +1,10 @@
 package br.com.jloja.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -36,15 +39,26 @@ public class ProdutoEntity {
 	@Column(nullable = false)
 	private int estoque;
 	
+	@Column(nullable = false, precision = 7, scale = 2)
+	private BigDecimal valor;
+	
 	@Column(nullable = false)
 	private int estoqueIdeal;
 	
-	@ManyToOne
-	@JoinColumn(name = "usuario_id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "fabricante", referencedColumnName = "idusuario", nullable = false)
 	private UsuarioEntity usuarioCadastro;
 
 	
 	
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
 	public UsuarioEntity getUsuarioCadastro() {
 		return usuarioCadastro;
 	}
