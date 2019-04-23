@@ -52,7 +52,7 @@
 			 			<p:password required="true" id="repetirsenha" value="#{usuarioMB.usuario.senha}" style="width: 100%"/>
 			 			
 			 			<f:facet name="footer">
-			 				<p:commandButton value="Gravar" icon="ui-icon-disk" update="pnluser" actionListener="#{usuarioMB.adicionar()}"/>
+			 				<p:commandButton value="Gravar" icon="ui-icon-disk" update=":userCadastro:pnluser :form:usuario" actionListener="#{usuarioMB.adicionar()}"/>
 			 			</f:facet>			 			
 			 		</h:panelGrid>
 			 	</h:form>
