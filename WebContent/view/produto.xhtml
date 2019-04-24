@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://xmlns.jcp.org/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+	<ui:composition template="/template/template.xhtml">
+		<ui:define name="conteudo">
+			<h:form id="form">
+				<f:event listener="#{produtoMB.listar()}" type="preRenderView"></f:event>
+				<p:dataTable id="produto" var="produto" value="#{produtoMB.listaU}" filteredValue="#{produtoMB.listaUFiltrado}"
+				 rows="5"
+                 paginator="true"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15"
+				>
+					<f:facet name="header">Produto</f:facet>
+					
+					<p:column headerText="Código" style="width: 10%; text-align: center" filterBy="#{produto.id}">
+						<h:outputText value="#{produto.id}" />
+					</p:column>
+					<p:column headerText="Nome" filterBy="#{produto.nome}">
+						<h:outputText value="#{produto.nome}" />
+					</p:column>
+					<p:column headerText="Descrição" filterBy="#{produto.descricao}">
+						<h:outputText value="#{produto.descricao}" />
+					</p:column>
+					<p:column headerText="Estoque" filterBy="#{produto.estoque}">
+						<h:outputText value="#{produto.estoque}" />
+					</p:column>
+					<p:column headerText="Estoque Ideal" filterBy="#{produto.estoqueIdeal}">
+						<h:outputText value="#{produto.estoqueIdeal}" />
+					</p:column>
+					<p:column headerText="Valor" filterBy="#{produto.valor}">
+						<h:outputText value="#{produto.valor}" />
+					</p:column>
+					<p:column headerText="Cadastrado por" filterBy="#{produto.usuarioCadastro.nome}">
+						<h:outputText value="#{produto.usuarioCadastro.nome}" />
+					</p:column>
+					<p:column headerText="Ação" style="width: 15%; text-align: center">
+						<p:commandButton icon="ui-icon-pencil" title="Alterar" 
+						onclick="PF('dledproduto').show();" 
+						actionListener="#{produtoMB.buscarCodigo(produto.id)}"
+						update=":produtoEditar:pnledproduto :form:produto :template"
+						></p:commandButton>
+						<p:commandButton icon="ui-icon-trash" title="Excluir" id="btnexc"
+						actionListener="#{produtoMB.buscarCodigo(produto.id)}"						
+						></p:commandButton>
+						
+						<p:overlayPanel id="excpanel" for="btnexc" hideEffect="fade">
+						<p:commandButton value="Sim" icon="ui-icon-check" actionListener="#{produtoMB.excluir()}"
+						update=":produtoEditar:pnledproduto :form:produto :template"
+						></p:commandButton>
+						<p:commandButton value="Não" icon="ui-icon-close" update=":produtoEditar:pnledproduto :form:produto :template"
+						></p:commandButton>
+						</p:overlayPanel>
+						
+					</p:column>
+					
+					<f:facet name="footer">
+						<p:commandButton icon="ui-icon-plusthick" value="Novo Produto" onclick="PF('dlproduto').show();"/>
+					</f:facet>
+				</p:dataTable>
+			 </h:form>		 
+
+			 <!-- CADASTRO DE USUARIO -->
+			 <p:dialog widgetVar="dlproduto" id="dlu" header="Cadastro de Produto" modal="true" appendTo="@(body)" 
+			 resizable="false" draggable="false" width="50%">
+			 	<h:form id="produtoCadastro">
+			 		<h:panelGrid id="pnlproduto" columns="2" cellpadding="5" width="100%">
+			 			<h:outputLabel value="Codigo:"/>
+			 			<h:inputText disabled="true" id="id" value="" style="width: 30%"/>
+			 			<h:outputLabel value="Nome:"/>	
+			 			<p:inputText required="true" id="nome" value="#{produtoMB.produto.nome}" style="width: 100%"/>
+			 			<h:outputLabel value="Senha: "/>	
+			 			<p:password required="true" id="descricao" value="#{produtoMB.produto.descricao}"  match="repetirdescricao" style="width: 100% " />	
+			 			<h:outputLabel value="Repetir Senha:"/>	
+			 			<p:password required="true" id="repetirdescricao" value="#{produtoMB.produto.descricao}" style="width: 100%"/>
+			 			
+			 			<f:facet name="footer">
+			 				<p:commandButton value="Gravar" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" update=":produtoCadastro:pnlproduto :form:produto :template" actionListener="#{produtoMB.adicionar()}"/>
+			 			</f:facet>			 			
+			 		</h:panelGrid>
+			 	</h:form>
+			 </p:dialog>
+			 
+			 <!-- EDIÇÂO DE USUARIO -->
+			 <p:dialog widgetVar="dledproduto" id="dledu" header="Editar Produto" modal="true" appendTo="@(body)" 
+			 resizable="false" draggable="false" width="50%">
+			 	<h:form id="produtoEditar">
+			 		<h:panelGrid id="pnledproduto" columns="2" cellpadding="5" width="100%">
+			 			<h:outputLabel value="Codigo:"/>
+			 			<h:inputText disabled="true" id="id" value="#{produtoMB.produto.id}" style="width: 30%" />
+			 			<h:outputLabel value="Nome:"/>	
+			 			<p:inputText required="true" id="nome" value="#{produtoMB.produto.nome}" style="width: 100%"/>
+			 			<h:outputLabel value="Senha: "/>	
+			 			<p:inputText required="true" id="descricao" value="#{produtoMB.produto.descricao}" style="width: 100% " />	
+
+			 			
+			 			<f:facet name="footer">
+			 				<p:commandButton value="Gravar Edição" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" update=":produtoEditar:pnledproduto :form:produto :template" actionListener="#{produtoMB.editar}"/>
+			 			</f:facet>			 			
+			 		</h:panelGrid>
+			 	</h:form>
+			 </p:dialog>
+			 
+		</ui:define>
+	</ui:composition>
+</html>

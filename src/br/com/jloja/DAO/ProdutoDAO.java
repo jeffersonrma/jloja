@@ -1,14 +1,53 @@
 package br.com.jloja.DAO;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import br.com.jloja.entity.ProdutoEntity;
+import br.com.jloja.entity.UsuarioEntity;
 import br.com.jloja.util.HibernateUtil;
 
 public class ProdutoDAO {
 	
+	public static void main(String[] args) {	
+		ProdutoEntity user = new ProdutoEntity();
+		user.setNome("123");
+		user.setDescricao("descriçao");
+		user.setEstoque(5);
+		user.setEstoqueIdeal(2);
+		user.setValor(new BigDecimal(55.22));
+		user.setUsuarioCadastro(new UsuarioDAO().buscarPorId(1));
+		
+		new ProdutoDAO().adicionar(user);
+		
+		
+//		UsuarioEntity user = udao.buscarPorId(2);
+//		user.setSenha("11111");
+//		udao.Editar(user);
+//		
+	}
+	public List<ProdutoEntity> listar(){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		List<ProdutoEntity> pr = null;
+		
+		try {
+			Query<ProdutoEntity> consulta = sessao.getNamedQuery("ProdutoEntity.listar");
+			pr = (List<ProdutoEntity>)consulta.list();
+			System.out.println("Usuarios emcontrados com sucesso " + pr.size());
+			
+		} catch (Exception e) {
+			System.out.println("Erro listar usuario: " + e.getMessage());
+			throw e;
+		} finally {
+			sessao.close();
+		}
+		
+		return pr;
+	}
 	
 	public ProdutoEntity buscarPorId(int id) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
