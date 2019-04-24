@@ -15,7 +15,9 @@
 					<p:inputText value="#{produtoMB.produto.nome}" required="true" disabled="true" style="width: 100%" />
 					<p:commandButton icon="ui-icon-search" onclick="PF('dlproduto').show();"/>
 					<h:outputLabel value="Qtde:" style="width: 50%" />
-					<p:inputText value="#{produtoMB.qtde}" onblur="PF('plproduto').update()" style="width: 50%"/>
+					<p:inputText value="#{produtoMB.qtde}" style="width: 50%" >
+						<p:ajax event="blur" update=":form:plproduto :template :buscaproduto" />
+					</p:inputText>
 					<h:outputLabel value="Valor:" style="width: 50%" />
 					<p:inputText value="#{produtoMB.produto.valor}" disabled="true" style="width: 80%"/>
 					<h:outputLabel value="Total:" style="width: 50%" />
