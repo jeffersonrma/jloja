@@ -50,7 +50,9 @@ public class ProdutoEntity {
 	@JoinColumn(name = "usuario_id",  nullable = false)
 	private UsuarioEntity usuarioCadastro;
 
-	
+	public void saida(int qtde) {
+		estoque = estoque - qtde;
+	}
 	
 	public BigDecimal getValor() {
 		return valor;

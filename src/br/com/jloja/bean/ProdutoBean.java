@@ -22,14 +22,29 @@ public class ProdutoBean {
 	private List<ProdutoEntity> listaUFiltrado;
 	private ProdutoEntity produto = new ProdutoEntity();
 	private int codigo;
+	private int qtde;
 	
 	public ProdutoBean() {
 		System.out.println("OOOOOOOOOOOOOOOO   CRIADO");
 	}
 	
+	public void saida(int qtde) {
+		try {
+			if (qtde > produto.getEstoque()) {
+				MsgUtil.msgInfo("Estoque insuficiente");
+			} else {
+				produto.saida(qtde);
+				new ProdutoDAO().Editar(produto);
+				MsgUtil.msgInfo("Saida salva com sucesso!");
+			}
+		} catch (Exception e) {
+			MsgUtil.msgErro("Erro na saida: " + e.getMessage());
+		}
+	}
 	
 	public void listar() {
 		try {
+			listaU = null;
 			listaU = new ProdutoDAO().listar();
 		} catch (Exception e) {
 			throw e;
@@ -117,6 +132,17 @@ public class ProdutoBean {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+
+
+	public int getQtde() {
+		return qtde;
+	}
+
+
+	public void setQtde(int qtde) {
+		this.qtde = qtde;
+	}
+	
 	
 
 }
