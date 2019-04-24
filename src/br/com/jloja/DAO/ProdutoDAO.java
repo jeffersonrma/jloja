@@ -53,13 +53,13 @@ public class ProdutoDAO {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		ProdutoEntity p = null;
 		try {
-			Query<ProdutoEntity> consulta = sessao.getNamedQuery("UsuarioEntity.buscarPorId");
+			Query<ProdutoEntity> consulta = sessao.getNamedQuery("ProdutoEntity.buscarPorId");
 			consulta.setParameter("id", id);
 			p = (ProdutoEntity)consulta.uniqueResult();
 			System.out.println("Usuario emcontrado com sucesso " + p);
 			
 		} catch (Exception e) {
-			System.out.println("erro usuario/buscarPorId " + e.getMessage());
+			System.out.println("erro produto/buscarPorId " + e.getMessage());
 			throw e;
 		} finally {
 			sessao.close();

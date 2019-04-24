@@ -10,6 +10,7 @@
 		<ui:define name="conteudo">
 			<h:form id="form">
 				<f:event listener="#{produtoMB.listar()}" type="preRenderView"></f:event>
+				
 				<p:dataTable id="produto" var="produto" value="#{produtoMB.listaU}" filteredValue="#{produtoMB.listaUFiltrado}"
 				 rows="5"
                  paginator="true"
@@ -80,13 +81,15 @@
 			 			<p:inputText required="true" id="estoque" value="#{produtoMB.produto.estoque}" style="width: 100%"/>
 			 			<h:outputLabel value="Estoque Ideal"/>	
 			 			<p:inputText required="true" id="estoqueIdeal" value="#{produtoMB.produto.estoqueIdeal}" style="width: 100%"/>
+			 			<h:outputLabel value="Valor"/>
+			 			<p:inputText required="true" id="Valor" value="#{produtoMB.produto.valor}" style="width: 100%"/>
 			 			<h:outputLabel value="Usuario"/>	
 			 			<p:inputText required="true" id="usuario" disabled="true" value="#{usuarioMB.usuarioLogado.nome}" style="width: 100%"/>
 
 
 			 			<f:facet name="footer">
 			 				<p:commandButton value="Gravar" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" 
-			 				update=":produtoCadastro:pnlproduto :form:produto :template" actionListener="#{produtoMB.adicionar}"/>
+			 				update=":produtoCadastro:pnlproduto :form:produto :template" actionListener="#{produtoMB.adicionar(usuarioMB.usuarioLogado)}"/>
 			 			</f:facet>			 			
 			 		</h:panelGrid>
 			 		
@@ -108,6 +111,8 @@
 			 			<p:inputText required="true" id="estoque" value="#{produtoMB.produto.estoque}" style="width: 100%"/>
 			 			<h:outputLabel value="Estoque Ideal"/>	
 			 			<p:inputText required="true" id="estoqueIdeal" value="#{produtoMB.produto.estoqueIdeal}" style="width: 100%"/>
+			 			<h:outputLabel value="Valor"/>
+			 			<p:inputText required="true" id="Valor" value="#{produtoMB.produto.valor}" style="width: 100%"/>
 			 			<h:outputLabel value="Usuario"/>	
 			 			<p:inputText required="true" id="usuario" disabled="true" value="#{usuarioMB.usuarioLogado.nome}" style="width: 100%"/>
 

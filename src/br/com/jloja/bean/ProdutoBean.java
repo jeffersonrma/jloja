@@ -9,7 +9,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import br.com.jloja.DAO.ProdutoDAO;
+import br.com.jloja.DAO.UsuarioDAO;
 import br.com.jloja.entity.ProdutoEntity;
+import br.com.jloja.entity.UsuarioEntity;
 import br.com.jloja.util.MsgUtil;
 
 @ManagedBean(name = "produtoMB")
@@ -19,7 +21,7 @@ public class ProdutoBean {
 	private List<ProdutoEntity> listaU;
 	private List<ProdutoEntity> listaUFiltrado;
 	private ProdutoEntity produto = new ProdutoEntity();
-	private ProdutoEntity produtoLogado;
+	private int codigo;
 	
 	public ProdutoBean() {
 		System.out.println("OOOOOOOOOOOOOOOO   CRIADO");
@@ -34,8 +36,9 @@ public class ProdutoBean {
 		}
 	}
 	
-	public void adicionar() {
+	public void adicionar(UsuarioEntity u) {
 		try {
+			produto.setUsuarioCadastro(u);
 			new ProdutoDAO().adicionar(produto);
 			produto = new ProdutoEntity();
 			MsgUtil.msgInfo("Produto cadastrado com sucesso!");
@@ -97,13 +100,16 @@ public class ProdutoBean {
 	public void setListaUFiltrado(List<ProdutoEntity> listaUFiltrado) {
 		this.listaUFiltrado = listaUFiltrado;
 	}
-	
-	public ProdutoEntity getProdutoLogado() {
-		if (produtoLogado == null) produtoLogado = new ProdutoEntity();
-		return produtoLogado;
+
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 	
-	public void setProdutoLogado(ProdutoEntity produtoLogado) {
-		this.produtoLogado = produtoLogado;
-	}
+
 }
