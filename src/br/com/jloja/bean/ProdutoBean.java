@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -15,7 +16,7 @@ import br.com.jloja.entity.UsuarioEntity;
 import br.com.jloja.util.MsgUtil;
 
 @ManagedBean(name = "produtoMB")
-@SessionScoped
+@ViewScoped
 public class ProdutoBean {
 	
 	private List<ProdutoEntity> listaU;
@@ -28,13 +29,16 @@ public class ProdutoBean {
 		System.out.println("OOOOOOOOOOOOOOOO   CRIADO");
 	}
 	
-	public void saida(int qtde) {
+	public void saida() {
 		try {
-			if (qtde > produto.getEstoque()) {
+			if (produto.getId() == 0) {
+				MsgUtil.msgInfo("Produto nao selecionado");
+			} else if (qtde > produto.getEstoque()) {
 				MsgUtil.msgInfo("Estoque insuficiente");
 			} else {
 				produto.saida(qtde);
 				new ProdutoDAO().Editar(produto);
+				produto = new ProdutoEntity();
 				MsgUtil.msgInfo("Saida salva com sucesso!");
 			}
 		} catch (Exception e) {
