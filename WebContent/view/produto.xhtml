@@ -74,15 +74,22 @@
 			 			<h:inputText disabled="true" id="id" value="" style="width: 30%"/>
 			 			<h:outputLabel value="Nome:"/>	
 			 			<p:inputText required="true" id="nome" value="#{produtoMB.produto.nome}" style="width: 100%"/>
-			 			<h:outputLabel value="Senha: "/>	
-			 			<p:password required="true" id="descricao" value="#{produtoMB.produto.descricao}"  match="repetirdescricao" style="width: 100% " />	
-			 			<h:outputLabel value="Repetir Senha:"/>	
-			 			<p:password required="true" id="repetirdescricao" value="#{produtoMB.produto.descricao}" style="width: 100%"/>
-			 			
+			 			<h:outputLabel value="Descrição "/>	
+			 			<p:inputText required="true" id="descricao" value="#{produtoMB.produto.descricao}"  style="width: 100% " />	
+			 			<h:outputLabel value="Qtde"/>	
+			 			<p:inputText required="true" id="estoque" value="#{produtoMB.produto.estoque}" style="width: 100%"/>
+			 			<h:outputLabel value="Estoque Ideal"/>	
+			 			<p:inputText required="true" id="estoqueIdeal" value="#{produtoMB.produto.estoqueIdeal}" style="width: 100%"/>
+			 			<h:outputLabel value="Usuario"/>	
+			 			<p:inputText required="true" id="usuario" disabled="true" value="#{usuarioMB.usuarioLogado.nome}" style="width: 100%"/>
+
+
 			 			<f:facet name="footer">
-			 				<p:commandButton value="Gravar" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" update=":produtoCadastro:pnlproduto :form:produto :template" actionListener="#{produtoMB.adicionar()}"/>
+			 				<p:commandButton value="Gravar" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" 
+			 				update=":produtoCadastro:pnlproduto :form:produto :template" actionListener="#{produtoMB.adicionar}"/>
 			 			</f:facet>			 			
 			 		</h:panelGrid>
+			 		
 			 	</h:form>
 			 </p:dialog>
 			 
@@ -91,14 +98,19 @@
 			 resizable="false" draggable="false" width="50%">
 			 	<h:form id="produtoEditar">
 			 		<h:panelGrid id="pnledproduto" columns="2" cellpadding="5" width="100%">
-			 			<h:outputLabel value="Codigo:"/>
-			 			<h:inputText disabled="true" id="id" value="#{produtoMB.produto.id}" style="width: 30%" />
+						<h:outputLabel value="Codigo:"/>
+			 			<h:inputText disabled="true" id="id" value="" style="width: 30%"/>
 			 			<h:outputLabel value="Nome:"/>	
 			 			<p:inputText required="true" id="nome" value="#{produtoMB.produto.nome}" style="width: 100%"/>
-			 			<h:outputLabel value="Senha: "/>	
-			 			<p:inputText required="true" id="descricao" value="#{produtoMB.produto.descricao}" style="width: 100% " />	
+			 			<h:outputLabel value="Descrição "/>	
+			 			<p:inputText required="true" id="descricao" value="#{produtoMB.produto.descricao}"  style="width: 100% " />	
+			 			<h:outputLabel value="Qtde"/>	
+			 			<p:inputText required="true" id="estoque" value="#{produtoMB.produto.estoque}" style="width: 100%"/>
+			 			<h:outputLabel value="Estoque Ideal"/>	
+			 			<p:inputText required="true" id="estoqueIdeal" value="#{produtoMB.produto.estoqueIdeal}" style="width: 100%"/>
+			 			<h:outputLabel value="Usuario"/>	
+			 			<p:inputText required="true" id="usuario" disabled="true" value="#{usuarioMB.usuarioLogado.nome}" style="width: 100%"/>
 
-			 			
 			 			<f:facet name="footer">
 			 				<p:commandButton value="Gravar Edição" icon="ui-icon-disk" onclick="PF('dledproduto').hide()" update=":produtoEditar:pnledproduto :form:produto :template" actionListener="#{produtoMB.editar}"/>
 			 			</f:facet>			 			
