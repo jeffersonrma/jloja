@@ -55,6 +55,7 @@ public class UsuarioBean {
 	}
 	
 
+
 	public void listar() {
 		try {
 			listaU = new UsuarioDAO().listar();

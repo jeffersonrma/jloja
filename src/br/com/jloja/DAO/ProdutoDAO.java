@@ -30,6 +30,26 @@ public class ProdutoDAO {
 //		udao.Editar(user);
 //		
 	}
+	
+	public List<ProdutoEntity> listarEstoqueBaixo() {
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		List<ProdutoEntity> pr = null;
+		
+		try {
+			Query<ProdutoEntity> consulta = sessao.getNamedQuery("ProdutoEntity.estoqueBaixo");
+			pr = (List<ProdutoEntity>)consulta.list();
+			System.out.println("Usuarios emcontrados com sucesso " + pr.size());
+			
+		} catch (Exception e) {
+			System.out.println("Erro listar usuario: " + e.getMessage());
+			throw e;
+		} finally {
+			sessao.close();
+		}
+		
+		return pr;
+	}
+	
 	public List<ProdutoEntity> listar(){
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		List<ProdutoEntity> pr = null;

@@ -35,6 +35,13 @@ public class ProdutoBean {
 			throw e;
 		}
 	}
+	public void listarEstoqueBaixo() {
+		try {
+			listaU = new ProdutoDAO().listarEstoqueBaixo();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 	
 	public void adicionar(UsuarioEntity u) {
 		try {
